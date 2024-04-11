@@ -9,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MFAValidationResponse {
-    private boolean status;
-    private String message;
+public class MFAValidationResponse extends BaseResponse {
+    boolean validationStatus;
+    boolean isTokenActive;
 }

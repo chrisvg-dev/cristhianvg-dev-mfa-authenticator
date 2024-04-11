@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
-import java.util.List;
+import org.springframework.http.HttpStatus;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class MFAValidationRequest extends MFABaseValidationRequest {
-    private String secondCode;
+public class BaseResponse {
+    private HttpStatus httpStatus;
+    private String message;
 }

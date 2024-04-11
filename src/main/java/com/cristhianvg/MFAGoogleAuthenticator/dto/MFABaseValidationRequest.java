@@ -5,12 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
-
 @Data
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
-public class MFAValidationRequest extends MFABaseValidationRequest {
-    private String secondCode;
+public class MFABaseValidationRequest {
+    private String firstCode;
 }
