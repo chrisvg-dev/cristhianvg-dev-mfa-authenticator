@@ -1,6 +1,6 @@
 package com.cristhianvg.mfa;
 
-import com.cristhianvg.mfa.entities.CustomUserPermission;
+import com.cristhianvg.mfa.entities.UserPermission;
 import com.cristhianvg.mfa.entities.enums.EPermission;
 import com.cristhianvg.mfa.repository.IPermissionDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +21,11 @@ public class MfaGoogleAuthenticatorApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		if (this.roleRepository.findAll().isEmpty()) {
 			this.roleRepository.saveAll(List.of(
-				CustomUserPermission.builder().permissionName(EPermission.USER).build(),
-				CustomUserPermission.builder().permissionName(EPermission.ADMIN).build(),
-				CustomUserPermission.builder().permissionName(EPermission.WRITE).build(),
-				CustomUserPermission.builder().permissionName(EPermission.READ).build()
+				UserPermission.builder().permissionName(EPermission.USERS_DELETE).build(),
+				UserPermission.builder().permissionName(EPermission.USERS_READ).build(),
+				UserPermission.builder().permissionName(EPermission.USERS_WRITE).build(),
+				UserPermission.builder().permissionName(EPermission.USERS_UPDATE).build(),
+				UserPermission.builder().permissionName(EPermission.ADMIN).build()
 			));
 		}
 	}

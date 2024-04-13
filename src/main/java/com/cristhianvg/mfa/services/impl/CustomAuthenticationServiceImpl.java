@@ -6,7 +6,7 @@ import com.cristhianvg.mfa.dto.AuthCustomUserDto;
 import com.cristhianvg.mfa.dto.JwtAuthenticationResponse;
 import com.cristhianvg.mfa.entities.CustomUser;
 import com.cristhianvg.mfa.entities.CustomUserDetails;
-import com.cristhianvg.mfa.entities.CustomUserPermission;
+import com.cristhianvg.mfa.entities.UserPermission;
 import com.cristhianvg.mfa.entities.enums.EPermission;
 import com.cristhianvg.mfa.exceptions.CustomUserException;
 import com.cristhianvg.mfa.repository.IPermissionDao;
@@ -40,7 +40,7 @@ public class CustomAuthenticationServiceImpl implements ICustomUserService {
     public BaseResponse saveNewUser(AuthCustomUserDto request) throws CustomUserException {
         CustomUser customUser = this.userRepository.findByEmail(request.getEmail()).orElse(null);
 
-        CustomUserPermission userPermission = this.permissionDao.findByPermissionName(EPermission.USER)
+        UserPermission userPermission = this.permissionDao.findByPermissionName(EPermission.USERS_READ)
                 .orElseThrow(() -> new CustomUserException("Could not find user permission"));
 
         if (Objects.nonNull(customUser)) {

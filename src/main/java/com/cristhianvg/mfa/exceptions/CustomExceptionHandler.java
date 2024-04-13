@@ -7,6 +7,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,6 +31,12 @@ public class CustomExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public BaseResponse handleAuthenticationException(AccessDeniedException ex) {
         return BaseResponse.builder().message(ex.getMessage()).build();
+    }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(InsufficientAuthenticationException.class)
+    public BaseResponse handleInsufficientAuthenticationException(InsufficientAuthenticationException ex) {
+        return BaseResponse.builder().message("Do not have permissions to access this resource (" + ex.getMessage() + ")").build();
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

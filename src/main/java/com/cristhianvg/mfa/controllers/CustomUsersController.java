@@ -17,7 +17,7 @@ public class CustomUsersController {
     private final IUserRepository userRepository;
 
     @GetMapping("/list")
-    @PreAuthorize("hasRole('ADMIN') or (hasRole('USER') and hasAuthority('READ'))")
+    @PreAuthorize("hasRole('ADMIN') or hasAuthority('USERS_READ')")
     public List<CustomUser> userList() {
         return this.userRepository.findAll();
     }

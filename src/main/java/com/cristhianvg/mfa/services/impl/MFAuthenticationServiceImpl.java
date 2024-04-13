@@ -60,7 +60,7 @@ public class MFAuthenticationServiceImpl implements IMFAuthenticationService {
                     .isTokenActive(!this.jwtService.isTokenExpired(jwt))
                     .message("MFA code validation OK")
                     .mfaEnabled(user.isMFAEnabled())
-                    .mfaAuthenticated(status)
+                    .mfaAuthenticated(true)
                     .build();
         } catch (NumberFormatException e) {
             throw new MFAValidationException("Invalid MFA code. Must be a number.");

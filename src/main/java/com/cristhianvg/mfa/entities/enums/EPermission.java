@@ -1,5 +1,9 @@
 package com.cristhianvg.mfa.entities.enums;
 
 public enum EPermission {
-    READ, WRITE, UPDATE, DELETE, USER, ADMIN
+    ADMIN,
+    USERS_READ,
+    USERS_WRITE,
+    USERS_UPDATE,
+    USERS_DELETE
 }

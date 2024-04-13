@@ -19,11 +19,15 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.web.cors.CorsConfiguration;
@@ -34,6 +38,7 @@ import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
+@EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -60,7 +65,9 @@ public class SecurityConfiguration {
                 .cors(cors -> corsConfigurationSource())
                 .authorizeHttpRequests(request -> request
                     .requestMatchers("/api/v1/auth/**").permitAll()
-                    //.requestMatchers("/api/v1/users/**").hasRole("USER")
+                    //.requestMatchers("/api/v1/users/list")
+                     //   .access(new WebExpressionAuthorizationManager("hasRole('ADMIN')"))
+                    .requestMatchers("/api/v1/users/**").hasAnyRole("ADMIN", "USER")
                     .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider())
@@ -100,11 +107,14 @@ public class SecurityConfiguration {
         return config.getAuthenticationManager();
     }
 
+    //@Bean
+    //MethodSecurityExpressionHandler createExpressionHandler() {
+    //    DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
+    //    expressionHandler.setDefaultRolePrefix("");
+    //    return expressionHandler;
+    //}
     @Bean
-    MethodSecurityExpressionHandler createExpressionHandler() {
-        DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
-        expressionHandler.setDefaultRolePrefix("");
-        return expressionHandler;
+    public GrantedAuthorityDefaults grantedAuthorityDefaults() {
+        return new GrantedAuthorityDefaults("");
     }
-
 }

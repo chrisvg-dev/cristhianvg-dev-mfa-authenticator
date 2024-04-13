@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @Table(name = "roles")
-public class CustomUserPermission extends CustomBaseEntity {
+public class UserPermission extends CustomBaseEntity {
     @Enumerated(EnumType.STRING)
     @Column(unique = true)
     private EPermission permissionName;

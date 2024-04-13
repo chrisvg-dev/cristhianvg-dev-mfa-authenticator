@@ -29,5 +29,5 @@ public class CustomUser extends CustomBaseEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "roles_by_user", joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "rol_id"))
-    private Set<CustomUserPermission> permissions = new HashSet<>();
+    private Set<UserPermission> permissions = new HashSet<>();
 }
